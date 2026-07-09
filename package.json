@@ -1,0 +1,28 @@
+{
+  "name": "loopqa-automation",
+  "version": "1.0.0",
+  "description": "Playwright automation framework using TypeScript, Page Object Model, and data-driven testing.",
+  "scripts": {
+  "test": "playwright test",
+  "test:headed": "playwright test --headed",
+  "test:debug": "playwright test --debug",
+  "report": "playwright show-report"
+},
+  "keywords": [
+  "playwright",
+  "typescript",
+  "automation",
+  "qa",
+  "testing",
+  "page-object-model"
+],
+  "author": "Akhil Reddy Apuri",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
