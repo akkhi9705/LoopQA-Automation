@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project is a Playwright automation framework built using **TypeScript** for the LoopQA QA Automation Engineer technical assessment.
+This project is a Playwright automation framework built using TypeScript for the LoopQA QA Automation Engineer technical assessment.
 
-The framework follows the **Page Object Model (POM)** design pattern and uses **data-driven testing** by reading test scenarios from a JSON file. This approach minimizes code duplication and makes it easy to add new test cases without modifying the test logic.
+The framework follows the **Page Object Model (POM)** design pattern and uses **data-driven testing** by reading test scenarios from a JSON file. This approach minimizes code duplication and makes it easy to add or modify test cases without changing the test logic.
 
 ---
 
@@ -15,7 +15,20 @@ The framework follows the **Page Object Model (POM)** design pattern and uses **
 - Page Object Model (POM)
 - JSON Data-Driven Testing
 - Dotenv
-- GitHub Actions
+
+---
+
+## Test Coverage
+
+The framework automates validation of:
+
+- User authentication
+- Project navigation
+- Task existence
+- Task column validation
+- Task tag validation
+
+All test scenarios are executed using data from `tasks.json`.
 
 ---
 
@@ -52,11 +65,11 @@ LoopQA-Automation
 - Page Object Model (POM)
 - Data-driven test execution
 - Environment variable configuration
-- HTML reports
+- Reusable page objects
+- HTML test reports
 - Screenshots on failure
 - Video recording on failure
 - Trace collection on failure
-- CI-ready GitHub Actions workflow
 
 ---
 
@@ -66,6 +79,12 @@ Clone the repository:
 
 ```bash
 git clone <repository-url>
+```
+
+Navigate to the project directory:
+
+```bash
+cd LoopQA-Automation
 ```
 
 Install dependencies:
@@ -84,14 +103,12 @@ npx playwright install
 
 ## Environment Setup
 
-Create a `.env` file using the values from `.env.example`.
-
-Example:
+Create a `.env` file in the project root using the following format:
 
 ```text
 BASE_URL=https://create-asana-like-pr-39y5.bolt.host/
-USERNAME=admin
-PASSWORD=password123
+APP_USERNAME=admin
+APP_PASSWORD=password123
 ```
 
 ---
@@ -104,13 +121,13 @@ Run all tests:
 npm test
 ```
 
-Run in headed mode:
+Run tests in headed mode:
 
 ```bash
 npm run test:headed
 ```
 
-Run in debug mode:
+Run tests in debug mode:
 
 ```bash
 npm run test:debug
@@ -120,6 +137,8 @@ npm run test:debug
 
 ## View HTML Report
 
+Generate and open the Playwright HTML report:
+
 ```bash
 npm run report
 ```
@@ -128,12 +147,14 @@ npm run report
 
 ## Framework Design
 
-This framework follows the **Page Object Model (POM)**, where page interactions are separated from the test logic.
+This framework follows the **Page Object Model (POM)**, where page interactions are encapsulated in dedicated page classes while test logic remains clean and readable.
 
-The test suite is **data-driven**, meaning all test scenarios are loaded from `tasks.json`. Adding a new test case only requires adding a new JSON object without changing the automation code.
+The test suite is **data-driven**, with all test scenarios maintained in `tasks.json`. New scenarios can be added by updating the JSON file without modifying the automation code.
 
 ---
 
-## Notes
+## Author
 
-At the time of development, the provided demo application (`https://create-asana-like-pr-39y5.bolt.host/`) returned an `ERR_SSL_PROTOCOL_ERROR` in both Chrome and Playwright. The automation framework has been implemented according to the assessment requirements, and the tests are ready to execute once the target environment becomes available.
+**Akhil Reddy Apuri**
+
+---
