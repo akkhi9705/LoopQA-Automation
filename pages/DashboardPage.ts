@@ -1,31 +1,28 @@
-import { Page, Locator } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class DashboardPage {
   readonly page: Page;
-  readonly webApplication: Locator;
-  readonly mobileApplication: Locator;
-
-  private readonly projectLocators: Record<string, Locator>;
 
   constructor(page: Page) {
     this.page = page;
-
-    this.webApplication = page.getByText('Web Application');
-    this.mobileApplication = page.getByText('Mobile Application');
-
-    this.projectLocators = {
-      'Web Application': this.webApplication,
-      'Mobile Application': this.mobileApplication,
-    };
   }
 
-  async openProject(project: string) {
-    const projectLocator = this.projectLocators[project];
+  async openProject(project: string): Promise<void> {
+    switch (project) {
+      case 'Web Application':
+        await this.page
+          .getByRole('button', { name: /^Web Application/i })
+          .click();
+        break;
 
-    if (!projectLocator) {
-      throw new Error(`Unknown project: ${project}`);
+      case 'Mobile Application':
+        await this.page
+          .getByRole('button', { name: /^Mobile Application/i })
+          .click();
+        break;
+
+      default:
+        throw new Error(`Unknown project: ${project}`);
     }
-
-    await projectLocator.click();
   }
 }

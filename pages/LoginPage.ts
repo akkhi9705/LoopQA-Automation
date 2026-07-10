@@ -9,16 +9,16 @@ export class LoginPage {
   constructor(page: Page) {
     this.page = page;
 
-    this.username = page.locator('input[type="text"]');
-    this.password = page.locator('input[type="password"]');
-    this.loginButton = page.locator('button[type="submit"]');
+    this.username = page.getByRole('textbox', { name: 'Username' });
+    this.password = page.getByRole('textbox', { name: 'Password' });
+    this.loginButton = page.getByRole('button', { name: 'Sign in' });
   }
 
-  async navigate(url: string) {
+  async navigate(url: string): Promise<void> {
     await this.page.goto(url);
   }
 
-  async login(username: string, password: string) {
+  async login(username: string, password: string): Promise<void> {
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();

@@ -4,21 +4,15 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { BoardPage } from '../pages/BoardPage';
 import testData from '../data/tasks.json';
 
-let loginPage: LoginPage;
-let dashboardPage: DashboardPage;
-let boardPage: BoardPage;
-
 test.describe('LoopQA Data Driven Tests', () => {
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    dashboardPage = new DashboardPage(page);
-    boardPage = new BoardPage(page);
-  });
 
   for (const tc of testData) {
 
-    test(`${tc.project} | ${tc.column} | ${tc.task}`, async () => {
+    test(`${tc.project} | ${tc.column} | ${tc.task}`, async ({ page }) => {
+
+      const loginPage = new LoginPage(page);
+      const dashboardPage = new DashboardPage(page);
+      const boardPage = new BoardPage(page);
 
       await test.step('Navigate to application', async () => {
         await loginPage.navigate(process.env.BASE_URL!);
@@ -26,8 +20,8 @@ test.describe('LoopQA Data Driven Tests', () => {
 
       await test.step('Login', async () => {
         await loginPage.login(
-          process.env.USERNAME!,
-          process.env.PASSWORD!
+          process.env.APP_USERNAME!,
+          process.env.APP_PASSWORD!
         );
       });
 

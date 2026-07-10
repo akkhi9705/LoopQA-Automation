@@ -7,42 +7,42 @@ export class BoardPage {
     this.page = page;
   }
 
-  /**
-   * Returns the locator for a task card.
-   */
   getTask(taskName: string): Locator {
-    return this.page.getByText(taskName);
+    return this.page.getByText(taskName, {
+      exact: true,
+    });
   }
 
-  /**
-   * Returns the locator for a board column.
-   */
-  getColumn(columnName: string): Locator {
-    return this.page.getByText(columnName);
-  }
-
-  /**
-   * Verify task exists.
-   */
-  async verifyTaskExists(taskName: string) {
+  async verifyTaskExists(taskName: string): Promise<void> {
     await expect(this.getTask(taskName)).toBeVisible();
   }
 
-  /**
-   * Verify task belongs to the expected column.
-   */
-  async verifyTaskInColumn(taskName: string, columnName: string) {
-    const column = this.getColumn(columnName);
+  async verifyTaskInColumn(
+    taskName: string,
+    columnName: string
+  ): Promise<void> {
+    const column = this.page
+      .locator('div.flex.flex-col.w-80')
+      .filter({
+        has: this.page.locator('h2', {
+          hasText: columnName,
+        }),
+      });
 
-    await expect(column).toContainText(taskName);
+    await expect(
+      column.getByText(taskName, {
+        exact: true,
+      })
+    ).toBeVisible();
   }
 
-  /**
-   * Verify all expected tags.
-   */
-  async verifyTags(tags: string[]) {
+  async verifyTags(tags: string[]): Promise<void> {
     for (const tag of tags) {
-      await expect(this.page.getByText(tag)).toBeVisible();
+      await expect(
+        this.page.getByText(tag, {
+          exact: true,
+        }).first()
+      ).toBeVisible();
     }
   }
 }
